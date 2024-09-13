@@ -2,9 +2,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import InfiniteScroll from "react-infinite-scroll-component";
-import Header from "./components/Header/Header";
+import Header from "../Header/Header";
+import { useLocation } from "react-router-dom";
 
 function Products() {
+  const location = useLocation();
+  const user = location.state?.user;
+//   console.log("uid", user);
+
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
@@ -12,10 +17,12 @@ function Products() {
   const [page, setPage] = useState(1);
   const productsPerPage = 10; // Number of products to load per page
 
+  //   console.log("user, > ", uid);
   useEffect(() => {
     // Fetch products from the API
     fetchProducts(page);
   }, [page]);
+
 
   const fetchProducts = (page) => {
     axios
@@ -43,59 +50,37 @@ function Products() {
     product.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
   return (
-    <div className="container my-4">
-      {/* Header with Search Bar */}
-      <Header />
-      <header className="d-flex justify-content-between align-items-center mb-4">
-        <h1 className="h2">Product List</h1>
-        <input
-          type="text"
-          placeholder="Search products..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="form-control w-50"
-        />
-      </header>
-
-      {/* Infinite Scroll */}
-      <InfiniteScroll
-        dataLength={filteredProducts.length}
-        next={() => setPage((prevPage) => prevPage + 1)}
-        hasMore={hasMore}
-        loader={
-          <div className="text-center mt-4">Loading more products...</div>
-        }
-        endMessage={
-          <p className="text-center mt-4">No more products to show.</p>
-        }>
-        <div className="row">
-          {filteredProducts.length > 0 ? (
-            filteredProducts.map((product) => (
-              <div key={product.id} className="col-md-4 mb-4">
-                <div className="card h-100">
-                  <img
-                    src={product.image}
-                    alt={product.title}
-                    className="card-img-top"
-                    style={{ height: "250px", objectFit: "contain" }}
-                  />
-                  <div className="card-body">
-                    <h5 className="card-title">{product.title}</h5>
-                    <p className="card-text">${product.price}</p>
-                    <p className="card-text text-muted small">
-                      {product.description}
-                    </p>
-                  </div>
-                </div>
+    <div className="border p-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {filteredProducts.length > 0 ? (
+          filteredProducts.map((product) => (
+            <div
+              key={product.id}
+              className="relative bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 cursor-pointer hover:peer-hover:scale-105">
+              <img
+                src={product.image}
+                alt={product.title}
+                className="w-full h-full object-cover scale-90 hover:scale-100 transition"
+              />
+              <div className="absolute bottom-0 w-full bg-gradient-to-t from-black to-transparent p-4 peer">
+                <h5 className="text-lg font-semibold text-white mb-1">
+                  {product.title}
+                </h5>
+                <p className="text-white font-medium mb-2">${product.price}</p>
+                <p className="text-sm text-gray-200">
+                  {product.description.length > 80
+                    ? `${product.description.slice(0, 80)}...`
+                    : product.description}
+                </p>
               </div>
-            ))
-          ) : (
-            <p className="text-center w-100">
-              No products found for "{searchQuery}".
-            </p>
-          )}
-        </div>
-      </InfiniteScroll>
+            </div>
+          ))
+        ) : (
+          <p className="text-center col-span-3 text-gray-600">
+            No products found for "{searchQuery}".
+          </p>
+        )}
+      </div>
     </div>
   );
 }
