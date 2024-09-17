@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "shop-app-d0503-7689d",
     "public": "public",
     "ignore": [
       "firebase.json",
