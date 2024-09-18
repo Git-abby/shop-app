@@ -47,12 +47,12 @@ function Header({ email }) {
           <div class="flex items-center space-x-6 rtl:space-x-reverse">
             {user && user ? (
               <>
-                <a
-                  href="#"
+                <span
+                  // href="#"
                   //   href="tel:5541251234"
                   class="text-sm  text-gray-500 dark:text-white hover:underline">
                   {user}
-                </a>
+                </span>
                 <a
                   onClick={handleSignOut}
                   class="text-sm  text-blue-600 dark:text-blue-500 hover:underline">
@@ -62,12 +62,12 @@ function Header({ email }) {
             ) : (
               <>
                 <a
-                  href="#"
+                  href="/"
                   class="text-sm  text-blue-600 dark:text-blue-500 hover:underline">
                   Signin
                 </a>
                 <a
-                  href="#"
+                  href="/signup"
                   class="text-sm  text-blue-600 dark:text-blue-500 hover:underline">
                   Sign up
                 </a>
