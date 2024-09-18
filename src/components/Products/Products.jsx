@@ -1,19 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
-import InfiniteScroll from "react-infinite-scroll-component";
-import Header from "../Header/Header";
-import { useLocation } from "react-router-dom";
 
 function Products() {
-  const location = useLocation();
-  const user = location.state?.user;
-//   console.log("uid", user);
 
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
-  const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
   const productsPerPage = 10; // Number of products to load per page
 
@@ -33,15 +25,15 @@ function Products() {
       )
       .then((response) => {
         setProducts((prevProducts) => [...prevProducts, ...response.data]);
-        setLoading(false);
+        // setLoading(false);
         // Check if we have loaded all products
         if (response.data.length < productsPerPage) {
-          setHasMore(false);
+          // setHasMore(false);
         }
       })
       .catch((error) => {
         console.error("Error fetching products:", error);
-        setLoading(false);
+        // setLoading(false);
       });
   };
 
