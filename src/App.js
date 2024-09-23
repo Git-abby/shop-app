@@ -5,6 +5,7 @@ import Products from "./components/Products/Products";
 import Header from "./components/Header/Header";
 import Signup from "./components/Authentication/Signup";
 import Product from "./components/Products/Product";
+import NotFound from "./components/NotFound/NotFound";
 
 const App = () => {
   // const param = useParams();
@@ -21,16 +22,18 @@ const App = () => {
             </>
           }
         />
-          <Route
-            path="/products"
-            element={
-              <>
-                <Header /> <Products />
-              </>
-            }
-          />
+        <Route
+          path="/products"
+          element={
+            <>
+              <Header /> <Products />
+            </>
+          }
+        />
         <Route path="/signup" element={<Signup />} />
         <Route path="/" element={<Signin />} />
+        {/*Not Found*/}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );
