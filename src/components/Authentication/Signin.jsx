@@ -92,13 +92,15 @@ function Signin() {
       console.info("Submitted");
     }
   };
-  const handleGoogleSignIn = async () => {
+  const handleGoogleSignIn = async (e) => {
+    e.preventDefault();
     try {
       const results = await doSignInWithGoogle();
       console.log(results.user.email);
 
       const user = results.user.email;
       navigate("/products", { state: { user } });
+      console.log("To Products");
     } catch (error) {
       console.log(error.message);
     }
