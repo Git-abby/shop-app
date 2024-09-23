@@ -3,7 +3,6 @@ import {
   doSignInWithEmailAndPassword,
   doSignInWithGoogle,
 } from "../../firebase/auth";
-// import { auth } from "../../firebase/firebase";
 import animationData from "../../assets/loading.json";
 import Lottie from "lottie-react";
 import { useNavigate } from "react-router-dom";
@@ -16,21 +15,9 @@ function Signin() {
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState(0);
 
-  const [user, setUser] = useState("");
-
   const [loading, setLoading] = useState(false);
-  const [isLoggedin, setIsLoggedin] = useState(false);
 
   const navigate = useNavigate();
-  //lottie
-  //   const defaultOptions = {
-  //     loop: true,
-  //     autoplay: true,
-  //     animationData: animationData,
-  //     rendererSettings: {
-  //       preserveAspectRatio: "xMidYMid slice",
-  //     },
-  //   };
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -69,15 +56,11 @@ function Signin() {
     if (username === "" || password === "") {
       setStatus(404); //required para not found
       setMessage("username and password required!");
-      setIsLoggedin(false);
       return;
     }
     try {
       const results = await doSignInWithEmailAndPassword(username, password);
       console.log(results.user);
-      setUser(results.user);
-      //   setLoading(true);
-      setIsLoggedin(true);
       setMessage("Sign In Successfull");
       setStatus(200);
       console.log("Success");
@@ -85,7 +68,6 @@ function Signin() {
       navigate("/products", { state: { user } });
     } catch (error) {
       setMessage(error.message);
-      setIsLoggedin(false);
       setStatus(404);
     } finally {
       setFormValues("");

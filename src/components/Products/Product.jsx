@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 
 function Product({ props }) {
@@ -9,25 +9,22 @@ function Product({ props }) {
   const location = useLocation();
   const user = location.state?.user;
   console.log(user);
-  useEffect(() => {
-    // Fetch products from the API
-    fetchProducts();
-  }, [id]);
 
-  const fetchProducts = () => {
+  const fetchProducts = useCallback(() => {
     axios
-      .get(`https://fakestoreapi.com/products/${param.id}`)
+      .get(`https://fakestoreapi.com/products/${id}`)
       .then((response) => {
         console.log(response.data);
         setProduct(response.data);
-        // setLoading(false);
-        // Check if we have loaded all products
       })
       .catch((error) => {
         console.error("Error fetching products:", error);
-        // setLoading(false);
       });
-  };
+  }, []);
+  useEffect(() => {
+    // Fetch products from the API
+    fetchProducts();
+  }, [fetchProducts]);
 
   return (
     <div className="flex justify-center px-5 mt-4">

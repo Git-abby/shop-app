@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { doCreateUserWithEmailAndPassword } from "../../firebase/auth";
 import { useNavigate } from "react-router-dom";
+import Lottie from "lottie-react";
+import animationData from "../../assets/loading.json";
 
 function Signup() {
   const [loading, setLoading] = useState(false);
@@ -11,7 +13,6 @@ function Signup() {
   });
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState(0);
-  const [user, setUser] = useState("");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -30,6 +31,7 @@ function Signup() {
   //   console.log(username, password, reEnterPassword);
 
   const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
     if (username === "" || password === "" || reEnterPassword === "") {
       setStatus(400);
@@ -48,8 +50,7 @@ function Signup() {
         password
       );
       console.log(results);
-      setUser(results.user);
-      //   console.log(user);
+      setLoading(false);
       const user = results.user.email;
       navigate("/products", { state: { user } });
 
@@ -61,11 +62,11 @@ function Signup() {
     <>
       {loading ? (
         <div className="w-full flex items-center justify-center min-h-screen">
-          {/* <Lottie
+           <Lottie
           animationData={animationData}
           loop={true}
           className="w-32 h-32"
-        /> */}
+        />
         </div>
       ) : (
         <div className="w-full flex items-center justify-center min-h-screen">
@@ -124,9 +125,6 @@ function Signup() {
               </button>
               <a href="/">Already have an account? Sign in</a>
             </div>
-            {/* <div className="mt-6 text-center text-gray-300">
-              {user && <p>{user.email}</p>}
-            </div> */}
           </form>
         </div>
       )}
