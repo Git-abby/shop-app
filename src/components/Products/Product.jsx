@@ -20,7 +20,7 @@ function Product({ props }) {
       .catch((error) => {
         console.error("Error fetching products:", error);
       });
-  }, []);
+  }, [id]);
   useEffect(() => {
     // Fetch products from the API
     fetchProducts();
