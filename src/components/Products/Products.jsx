@@ -21,23 +21,22 @@ function Products() {
       .get(`https://fakestoreapi.com/products`)
       .then((response) => {
         setProducts((prevProducts) => [...prevProducts, ...response.data]);
+        setLoading(false);
+        // Check if we have loaded all products
+        if (response.data.length < productsPerPage) {
+          setHasMore(false);
+        }
       })
       .catch((error) => {
         console.error("Error fetching products:", error);
+        setLoading(false);
       });
-  }, []);
-
-  useEffect(() => {
-    // Fetch products from the API
-    fetchProducts();
-  }, [fetchProducts]);
-
-  const onSubmitToProduct = (id) => {
-    console.info("onSubmitToProduct called with id:", id);
-    navigate(`/product/${id}`, { state: { user } });
-    console.info(`User redirected to /product/${id}`);
   };
 
+  // Filter products based on search query
+  // const filteredProducts = products.filter((product) =>
+  //   product.title.toLowerCase().includes(searchQuery.toLowerCase())
+  // );
   return (
     <div className="border p-5">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
