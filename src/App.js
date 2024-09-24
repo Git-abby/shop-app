@@ -6,6 +6,7 @@ import Header from "./components/Header/Header";
 import Signup from "./components/Authentication/Signup";
 import Product from "./components/Products/Product";
 import NotFound from "./components/NotFound/NotFound";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 
 const App = () => {
   // const param = useParams();
@@ -16,18 +17,22 @@ const App = () => {
         <Route
           path="/product/:id"
           element={
-            <>
-              <Header />
-              <Product />
-            </>
+            <PrivateRoute>
+              <>
+                <Header />
+                <Product />
+              </>
+            </PrivateRoute>
           }
         />
         <Route
           path="/products"
           element={
-            <>
-              <Header /> <Products />
-            </>
+            <PrivateRoute>
+              <>
+                <Header /> <Products />
+              </>
+            </PrivateRoute>
           }
         />
         <Route path="/signup" element={<Signup />} />

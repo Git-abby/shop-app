@@ -21,6 +21,7 @@ function Header({ email }) {
     try {
       await doSignOut();
       setLoading(true);
+      localStorage.removeItem("user");
       navigate("/");
     } catch (error) {
       console.error(error);

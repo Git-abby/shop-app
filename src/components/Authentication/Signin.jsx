@@ -65,7 +65,9 @@ function Signin() {
       setStatus(200);
       console.log("Success");
       const user = results.user.email;
+      localStorage.setItem("user", user)
       navigate("/products", { state: { user } });
+
     } catch (error) {
       setMessage(error.message);
       setStatus(404);
@@ -81,6 +83,8 @@ function Signin() {
       console.log(results.user.email);
 
       const user = results.user.email;
+      
+      localStorage.setItem("user", user)
       navigate("/products", { state: { user } });
       console.log("To Products");
     } catch (error) {
