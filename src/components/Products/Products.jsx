@@ -31,7 +31,7 @@ function Products() {
         console.error("Error fetching products:", error);
         setLoading(false);
       });
-  };
+  });
 
   // Filter products based on search query
   // const filteredProducts = products.filter((product) =>
