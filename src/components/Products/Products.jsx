@@ -8,7 +8,13 @@ function Products() {
   const user = location.state?.user;
   console.log(user);
   const navigate = useNavigate();
+
   const [products, setProducts] = useState([]);
+  // const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [hasMore, setHasMore] = useState(true);
+  const [page, setPage] = useState(1);
+  const productsPerPage = 10; // Number of products to load per page
 
   const fetchProducts = useCallback((e) => {
     axios
