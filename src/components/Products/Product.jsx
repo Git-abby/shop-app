@@ -27,10 +27,10 @@ function Product({ props }) {
   }, [fetchProducts]);
 
   return (
-    <div className="flex justify-center px-5 mt-4">
+    <div className="flex justify-center p-5">
       <div
         key={product.id}
-        className="relative bg-white border flex items-center justify-center rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 cursor-pointer hover:peer-hover:scale-105 sm:flex-col">
+        className="relative bg-white border flex lg:flex-row md:flex-row flex-col items-center justify-center rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 cursor-pointer hover:peer-hover:scale-105">
         <img
           src={product.image}
           alt={product.title}

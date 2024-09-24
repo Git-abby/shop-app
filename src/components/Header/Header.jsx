@@ -7,7 +7,7 @@ function Header({ email }) {
   const [loading, setLoading] = useState(false);
   const location = useLocation();
   const user = location.state?.user;
-  console.log(user)
+  // console.log(user)
   useEffect(() => {
     if (loading) {
       setTimeout(() => {
@@ -27,6 +27,10 @@ function Header({ email }) {
     }
   };
 
+  const onClickLogo = (e) => {
+    e.preventDefault();
+    navigate("/products", { state: { user } });
+  }
   if (loading) {
     return <h1>Loading...</h1>;
   }
@@ -35,14 +39,14 @@ function Header({ email }) {
     <>
       <nav className="w-full bg-white border-gray-200 dark:bg-gray-900">
         <div className="w-full flex flex-wrap justify-between items-center max-w-screen-xl p-4">
-          <a
-            href="/products"
+          <button
+            onClick={onClickLogo}
             className=" align-center flex items-center justify-center space-x-3 rtl:space-x-reverse">
             <img src={logo} className="h-10" alt="Amiri Logo" />
             <span className="self-center text-3xl font-semibold whitespace-nowrap dark:text-white pb-2">
               Amiri
             </span>
-          </a>
+          </button>
           {/* if user is there display email and logout btn */}
           <div className="flex items-center space-x-6 rtl:space-x-reverse">
             {user && user ? (
