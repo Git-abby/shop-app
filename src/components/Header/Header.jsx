@@ -38,8 +38,8 @@ function Header({ email }) {
   // console.log(isMenuOpen);
   return (
     <>
-      <nav className="w-full bg-white border-gray-200 dark:bg-gray-900">
-        <div className="w-full flex flex-wrap justify-between items-center max-w-screen-xl p-4">
+      <nav className="w-full bg-white dark:bg-gray-900 flex justify-center items-center">
+        <div className="w-full flex flex-wrap justify-between items-center max-w-screen-xl p-4 text-center">
           <button
             onClick={onClickLogo}
             className=" align-center flex items-center justify-center space-x-3 rtl:space-x-reverse">
@@ -53,7 +53,7 @@ function Header({ email }) {
             {user && user ? (
               <>
                 <span
-                  className="text-sm  text-gray-500 dark:text-white hover:underline">
+                  className="text-sm  text-gray-500  hover:underline cursor-pointer">
                   {user}
                 </span>
                 <button
@@ -79,7 +79,7 @@ function Header({ email }) {
           </div>
         </div>
       </nav>
-      <nav className="w-full bg-gray-300 dark:bg-gray-700">
+      <nav className="w-full bg-gray-300 dark:bg-gray-700 flex justify-center items-center">
         <div className="max-w-screen-xl py-3">
           <div className="flex items-center">
             <ul className="flex flex-row items-center justify-center font-medium space-x-8 rtl:space-x-reverse text-sm mt-0 mb-0">
